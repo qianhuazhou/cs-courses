@@ -55,9 +55,6 @@ class Perceptron:
                             np.transpose(self.w)[c] = np.transpose(self.w)[c] - self.lr * X_train[x]
                     np.transpose(self.w)[c] += (self.lr * self.reg_const / obs) * np.transpose(self.w)[c]
             self.lr =  self.lr * 0.85
-            
-            
-
 
     def predict(self, X_test: np.ndarray) -> np.ndarray:
         """Use the trained weights to predict labels for test data points.

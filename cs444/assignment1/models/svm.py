@@ -1,7 +1,7 @@
 """Support Vector Machine (SVM) model."""
 
 import numpy as np
-
+#np.random.seed(111)
 
 class SVM:
 	def __init__(self, n_class: int, lr: float, epochs: int, reg_const: float):
@@ -39,9 +39,9 @@ class SVM:
 		# TODO: implement me
 		N, D = X_train.shape
 		grads = self.reg_const * self.w  # gradient for regularization
-		ground_truth_batch = self.batch_score[np.arange(N), y_train]  # (n,)
-		ground_truth_batch = ground_truth_batch[:, np.newaxis]
-		score_for_grad = ((ground_truth_batch - self.batch_score) < 1).astype(int)
+		truth_batch = self.batch_score[np.arange(N), y_train]  # (n,)
+		truth_batch = truth_batch[:, np.newaxis]
+		score_for_grad = ((truth_batch - self.batch_score) < 1).astype(int)
 		score_for_grad[np.arange(N), y_train] = 0 
 		ground_truth_grad = score_for_grad.sum(axis=1)[:, np.newaxis] * X_train
 		for i in range(N):

@@ -30,7 +30,7 @@ class Logistic:
         #       - For negative numbers, try an alternative formulation of the sigmoid function.
         result = np.zeros_like(z, dtype=float)
 
-        #  pos
+        # pos
         pos_ind = z >= 0
         result[pos_ind] = 1 / (1 + np.exp(-z[pos_ind]))
 

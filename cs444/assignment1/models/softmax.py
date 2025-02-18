@@ -1,7 +1,7 @@
 """Softmax model."""
 
 import numpy as np
-
+np.random.seed(10000)
 
 class Softmax:
 	def __init__(self, n_class: int, lr: float, epochs: int, reg_const: float):
