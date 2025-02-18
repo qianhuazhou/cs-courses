@@ -1,7 +1,7 @@
 """Support Vector Machine (SVM) model."""
 
 import numpy as np
-#np.random.seed(111)
+np.random.seed(111)
 
 class SVM:
 	def __init__(self, n_class: int, lr: float, epochs: int, reg_const: float):
@@ -38,10 +38,10 @@ class SVM:
 		"""
 		# TODO: implement me
 		N, D = X_train.shape
-		grads = self.reg_const * self.w  # gradient for regularization
-		truth_batch = self.batch_score[np.arange(N), y_train]  # (n,)
-		truth_batch = truth_batch[:, np.newaxis]
-		score_for_grad = ((truth_batch - self.batch_score) < 1).astype(int)
+		grads = self.reg_const * self.w  
+		ground_truth_batch = self.batch_score[np.arange(N), y_train]  # (n,)
+		ground_truth_batch = ground_truth_batch[:, np.newaxis]
+		score_for_grad = ((ground_truth_batch - self.batch_score) < 1).astype(int)
 		score_for_grad[np.arange(N), y_train] = 0 
 		ground_truth_grad = score_for_grad.sum(axis=1)[:, np.newaxis] * X_train
 		for i in range(N):
@@ -53,20 +53,23 @@ class SVM:
 	def train(self, X_train: np.ndarray, y_train: np.ndarray):
 		"""Train the classifier.
 
-		Hint: operate on mini-batches of data for SGD.
+        Hint: operate on mini-batches of data for SGD.
+        - Initialize self.w as a matrix with random values sampled uniformly from [-1, 1)
+        and scaled by 0.01. This scaling prevents overly large initial weights,
+        which can adversely affect training.
 
-		Parameters:
-			X_train: a numpy array of shape (N, D) containing training data;
-				N examples with D dimensions
-			y_train: a numpy array of shape (N,) containing training labels
-		"""
+        Parameters:
+            X_train: a numpy array of shape (N, D) containing training data;
+                N examples with D dimensions
+            y_train: a numpy array of shape (N,) containing training labels
+        """
 		# TODO: implement me
 		N, D = X_train.shape
 		self.w = np.random.randn(D, 10)
 		iters = N // self.batch_size
 		for epoch in range(self.epochs):
 			self.lr = self.lr / (1+epoch)
-			print("epoch: " + str(epoch), " lr: " + str(self.lr))
+			#print("epoch: " + str(epoch), " lr: " + str(self.lr))
 			for i in range(iters):
 				x = X_train[i*self.batch_size: (i+1) * self.batch_size]
 				y = y_train[i*self.batch_size: (i+1) * self.batch_size]

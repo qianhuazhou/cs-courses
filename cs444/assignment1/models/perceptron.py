@@ -42,11 +42,8 @@ class Perceptron:
         for epoch in range(self.epochs):
             prev_y = X_train @ self.w
             tmp = [np.argmax(i) for i in prev_y]
-            print("Epoch", epoch, ", Accuracy",np.sum(y_train == tmp) / len(y_train) * 100)
-
+            #print("Epoch", epoch, ", Accuracy",np.sum(y_train == tmp) / len(y_train) * 100)
             np.random.shuffle(indices)
-
-            #update weights for incorrect ones
             for x in indices:
                 for c in range(self.n_class):
                     if c != y_train[x]:
@@ -54,7 +51,7 @@ class Perceptron:
                             np.transpose(self.w)[y_train[x]] = np.transpose(self.w)[y_train[x]] + self.lr * X_train[x]
                             np.transpose(self.w)[c] = np.transpose(self.w)[c] - self.lr * X_train[x]
                     np.transpose(self.w)[c] += (self.lr * self.reg_const / obs) * np.transpose(self.w)[c]
-            self.lr =  self.lr * 0.85
+            self.lr *= 0.85
 
     def predict(self, X_test: np.ndarray) -> np.ndarray:
         """Use the trained weights to predict labels for test data points.
@@ -71,3 +68,5 @@ class Perceptron:
         # TODO: implement me           
         result =  X_test @ self.w
         return [np.argmax(p) for p in result]
+    
+   
