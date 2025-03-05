@@ -1,1 +1,1 @@
-# uiuc-cs-courses
+# cs-courses
